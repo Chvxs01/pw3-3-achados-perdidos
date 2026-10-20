@@ -67,3 +67,18 @@
   * `PUT /api/itens/{id}` — Edita dados/descrição do item.
   * `DELETE /api/itens/{id}` — Exclui registro de item.
   * `PATCH /api/itens/{id}/status` — Atualiza o status seguindo a regra de transição permitida.
+
+* **Pseudocódigo da Regra de Negócio (Transição de Status):**
+```text
+Função atualizarStatus(itemId, novoStatus):
+    item = repository.buscarPorId(itemId)
+    
+    Se item.status == "DEVOLVIDO" E novoStatus != "DEVOLVIDO" Então
+        LançarErro("Item já devolvido ao dono não pode ter o status alterado.")
+    FimSe
+    
+    item.status = novoStatus
+    Retornar repository.salvar(item)
+FimFuncao
+```
+
