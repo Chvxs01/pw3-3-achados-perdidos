@@ -1,2 +1,2 @@
-#Nomes da dupla
+Felipe Santos Souza e Gabriel Chaves da Silva 
 
