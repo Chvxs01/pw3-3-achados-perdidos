@@ -1,46 +1,69 @@
 package br.com.FelipeS_GabrielC.pw3_achados_perdidos.entity;
 
+import br.com.FelipeS_GabrielC.pw3_achados_perdidos.enums.CategoriaEnum;
+import br.com.FelipeS_GabrielC.pw3_achados_perdidos.enums.StatusItemEnum;
+import br.com.FelipeS_GabrielC.pw3_achados_perdidos.enums.TipoItemEnum;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.context.annotation.Conditional;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+
 @Entity
 @Table(name = "itens")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @NotBlank @Size(max = 120)
+    @Column(name = "titulo")
     private String titulo;
 
-    @Size(max = 500)
+    @Column(name = "descricao")
     private String descricao;
 
     @Enumerated(EnumType.STRING)
-    private Categoria categoria;
+    @Column(name = "categoria")
+    private CategoriaEnum categoriaEnum;
 
     @Enumerated(EnumType.STRING)
-    private TipoItem tipo;
+    @Column(name = "tipo")
+    private TipoItemEnum tipoItemEnum;
 
     @Enumerated(EnumType.STRING)
-    private StatusItem status = StatusItem.ABERTO;
+    @Column(name = "status")
+    private StatusItemEnum statusItemEnum = StatusItemEnum.ABERTO;
 
-    @NotBlank
+    @Column(name = "local_ocorrencia")
     private String localOcorrencia;
 
-    @NotNull @PastOrPresent
+    @Column(name = "data_ocorrencia")
     private LocalDate dataOcorrencia;
 
-    @NotBlank
+    @Column(name = "nome_contato")
     private String nomeContato;
 
-    @NotBlank
+    @Column(name = "contato")
     private String contato;
 
+    @Column(name = "data_registro")
     private LocalDateTime dataRegistro;
+
+    @Column(name = "data_devolucao")
     private LocalDateTime dataDevolucao;
+
+    @Column(name = "nome_retirante")
     private String nomeRetirante;
 
     @PrePersist
     void aoCriar() {
         dataRegistro = LocalDateTime.now();
-        if (status == null) status = StatusItem.ABERTO;
+        if (statusItemEnum == null) statusItemEnum = StatusItemEnum.ABERTO;
     }
 }
