@@ -38,7 +38,7 @@ public class Item {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StatusItemEnum statusItemEnum = StatusItemEnum.ABERTO;
+    private StatusItemEnum statusItemEnum;
 
     @Column(name = "local_ocorrencia")
     private String localOcorrencia;

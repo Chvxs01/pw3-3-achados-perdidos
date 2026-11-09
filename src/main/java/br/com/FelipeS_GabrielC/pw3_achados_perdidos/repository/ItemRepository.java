@@ -9,10 +9,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    List<Item> findByStatus(StatusItemEnum statusItemEnum);
-    List<Item> findByTipo(TipoItemEnum tipoItemEnum);
+    List<Item> findByStatusItemEnum(StatusItemEnum statusItemEnum);
+    List<Item> findByTipoItemEnum(TipoItemEnum tipoItemEnum);
 
     List<Item> findByTituloContainingIgnoreCaseOrDescricaoContainingIgnoreCase(String t, String d);
 
-    List<Item> findByTipoAndCategoriaAndStatus(TipoItemEnum tipoItemEnum, CategoriaEnum categoriaEnum, StatusItemEnum statusItemEnum);
+    List<Item> findByTipoItemEnumAndCategoriaEnumAndStatusItemEnum(
+            TipoItemEnum tipoItemEnum,
+            CategoriaEnum categoriaEnum,
+            StatusItemEnum statusItemEnum
+    );
 }
