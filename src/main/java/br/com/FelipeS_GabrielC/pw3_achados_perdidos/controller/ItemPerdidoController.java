@@ -6,6 +6,8 @@ import br.com.FelipeS_GabrielC.pw3_achados_perdidos.service.ItemPerdidoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
 public class ItemPerdidoController {
     private final ItemPerdidoService service;
 
-    public record StatusRequest(StatusItemEnum status) {}
+    public record StatusRequest(@NotNull(message = "Informe o status") StatusItemEnum status) {}
 
     @GetMapping
     public List<ItemPerdido> listar(@RequestParam(required = false) StatusItemEnum status) {
@@ -28,12 +30,12 @@ public class ItemPerdidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemPerdido cadastrar(@RequestBody ItemPerdido item) {
+    public ItemPerdido cadastrar(@Valid @RequestBody ItemPerdido item) {
         return service.cadastrar(item);
     }
 
     @PutMapping("/{id}")
-    public ItemPerdido atualizar(@PathVariable Long id, @RequestBody ItemPerdido item) {
+    public ItemPerdido atualizar(@PathVariable Long id, @Valid @RequestBody ItemPerdido item) {
         return service.atualizar(id, item);
     }
 
@@ -42,7 +44,7 @@ public class ItemPerdidoController {
     public void excluir(@PathVariable Long id) { service.excluir(id); }
 
     @PatchMapping("/{id}/status")
-    public ItemPerdido atualizarStatus(@PathVariable Long id, @RequestBody StatusRequest req) {
+    public ItemPerdido atualizarStatus(@PathVariable Long id, @Valid @RequestBody StatusRequest req) {
         return service.atualizarStatus(id, req.status());
     }
 }
