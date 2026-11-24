@@ -2,25 +2,18 @@ CREATE DATABASE achadosperdidosdb;
 
 USE achadosperdidosdb;
 
-
-CREATE TABLE itens (
-    id               BIGINT IDENTITY(1,1) PRIMARY KEY,
-    titulo           VARCHAR(120) NOT NULL,
-    descricao        VARCHAR(500) NULL,
-    categoria        VARCHAR(30)  NOT NULL,
-    tipo             VARCHAR(10)  NOT NULL,  -- PERDIDO ou ACHADO
-    status           VARCHAR(15)  NOT NULL,  -- ABERTO ou DEVOLVIDO
-    local_ocorrencia VARCHAR(150) NOT NULL,
-    data_ocorrencia  DATE         NOT NULL,
-    nome_contato     VARCHAR(100) NOT NULL,
-    contato          VARCHAR(100) NOT NULL,
-    data_registro    DATETIME2    NOT NULL,
-    data_devolucao   DATETIME2    NULL,
-    nome_retirante   VARCHAR(100) NULL
+CREATE TABLE itens_perdidos (
+    id BIGINT IDENTITY(1,1) PRIMARY KEY,
+    nome_item VARCHAR(255) NOT NULL,
+    local_encontrado VARCHAR(255) NOT NULL,
+    data_achado DATE NOT NULL,
+    status_item VARCHAR(20) NOT NULL,
+    descricao_devolucao VARCHAR(255) NULL
 );
 
 
-INSERT INTO itens (titulo, descricao, categoria, tipo, status, local_ocorrencia, data_ocorrencia, nome_contato, contato, data_registro) VALUES
-('Mochila preta', 'Mochila Nike com chaveiro vermelho', 'MOCHILA', 'PERDIDO', 'ABERTO', 'Biblioteca', '2026-10-20', 'Ana Souza', 'ana@email.com', SYSDATETIME()),
-('Mochila preta', 'Encontrada na mesa 4', 'MOCHILA', 'ACHADO', 'ABERTO', 'Biblioteca', '2026-10-21', 'Portaria', '(19) 99999-0000', SYSDATETIME()),
-('Carteira marrom', 'Contém documentos', 'DOCUMENTO', 'ACHADO', 'ABERTO', 'Cantina', '2026-10-22', 'Portaria', '(19) 99999-0000', SYSDATETIME());
+INSERT INTO itens_perdidos (nome_item, local_encontrado, data_achado, status_item) VALUES
+('Garrafa azul', 'Biblioteca', '2026-11-18', 'PERDIDO'),
+('Carteira marrom', 'Cantina', '2026-11-19', 'REIVINDICADO'),
+('Chave do armário', 'Ginásio', '2026-11-20', 'DEVOLVIDO');
+
